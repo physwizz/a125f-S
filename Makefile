@@ -320,7 +320,10 @@ include scripts/subarch.include
 # Default value for CROSS_COMPILE is not to prefix executables
 # Note: Some architectures assign CROSS_COMPILE in their arch/*/Makefile
 ARCH            ?= arm64
-CROSS_COMPILE   ?= $(srctree)/toolchain/clang/host/linux-x86/clang-r383902/bin/aarch64-linux-gnu-
+# CROSS_COMPILE   ?= $(srctree)/toolchain/clang/host/linux-x86/clang-r383902/bin/aarch64-linux-gnu-
+
+CROSS_COMPILE=/home/grahame/toolchains/aarch64-linux-gnu-master/bin/aarch64-linux-gnu-
+
 
 # Architecture as present in compile.h
 UTS_MACHINE 	:= $(ARCH)
@@ -376,7 +379,9 @@ KBUILD_HOSTLDLIBS   := $(HOST_LFS_LIBS) $(HOSTLDLIBS)
 # Make variables (CC, etc...)
 CPP		= $(CC) -E
 ifneq ($(LLVM),)
-CC		= clang
+# CC		= clang\\
+CC=/home/grahame/toolchains/prebuilts_clang_host_linux-x86_clang-r383902-jopp-11/bin/clang
+
 LD		= ld.lld
 AR		= llvm-ar
 NM		= llvm-nm
@@ -386,7 +391,11 @@ READELF		= llvm-readelf
 OBJSIZE		= llvm-size
 STRIP		= llvm-strip
 else
-CC		= $(srctree)/toolchain/clang/host/linux-x86/clang-r383902/bin/clang
+# CC		= $(srctree)/toolchain/clang/host/linux-x86/clang-r383902/bin/clang
+
+
+CC=/home/grahame/toolchains/prebuilts_clang_host_linux-x86_clang-r383902-jopp-11/bin/clang
+
 LD		= $(CROSS_COMPILE)ld
 AR		= $(CROSS_COMPILE)ar
 NM		= $(CROSS_COMPILE)nm
