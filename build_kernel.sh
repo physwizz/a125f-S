@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export CROSS_COMPILE=/home/grahame/toolchains/toolchains-gcc-10.3.0/bin/aarch64-buildroot-linux-gnu-
-export CC=$(pwd)/toolchain/clang/host/linux-x86/clang-r416183b1/bin/clang
+export CC=$(pwd)/toolchain/clang/host/linux-x86/clang-r383902/bin/clang
 export CLANG_TRIPLE=aarch64-linux-gnu-
 export ARCH=arm64
 export ANDROID_MAJOR_VERSION=r
