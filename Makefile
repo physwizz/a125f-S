@@ -320,7 +320,7 @@ include scripts/subarch.include
 # Default value for CROSS_COMPILE is not to prefix executables
 # Note: Some architectures assign CROSS_COMPILE in their arch/*/Makefile
 ARCH            ?= arm64
-CROSS_COMPILE=/home/grahame/toolchains/toolchains-gcc-10.3.0/bin/aarch64-buildroot-linux-gnu-
+CROSS_COMPILE=/home/physwizz/toolchains/toolchains-gcc-10.3.0/bin/aarch64-buildroot-linux-gnu-
 # Architecture as present in compile.h
 UTS_MACHINE 	:= $(ARCH)
 SRCARCH 	:= $(ARCH)
