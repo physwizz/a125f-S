@@ -132,6 +132,7 @@ struct PCIE_CHIP_CR_MAPPING connac_bus2chip_cr_mapping[] = {
 };
 #endif /* _HIF_PCIE || _HIF_AXI */
 
+/* Rissu changes @ 04/01/2025 */
 void connacConstructFirmwarePrio(struct GLUE_INFO *prGlueInfo,
 	uint8_t **apucNameTable, uint8_t **apucName,
 	uint8_t *pucNameIdx, uint8_t ucMaxNameIdx)
@@ -142,7 +143,7 @@ void connacConstructFirmwarePrio(struct GLUE_INFO *prGlueInfo,
 
 	kalGetFwFlavor(&aucFlavor[0]);
 	for (ucIdx = 0; apucConnacFwName[ucIdx]; ucIdx++) {
-		if ((*pucNameIdx + 3) >= ucMaxNameIdx) {
+		if ((*pucNameIdx + 4) >= ucMaxNameIdx) {
 			/* the table is not large enough */
 			DBGLOG(INIT, ERROR,
 				"kalFirmwareImageMapping >> file name array is not enough.\n");
@@ -178,7 +179,18 @@ void connacConstructFirmwarePrio(struct GLUE_INFO *prGlueInfo,
 					"[%u] kalSnprintf failed, ret: %d\n",
 					__LINE__, ret);
 
-		/* Type 3. WIFI_RAM_CODE_soc1_0 */
+		/* Type 3. WIFI_RAM_CODE_soc1_0_1c_1.bin */
+		ret = kalSnprintf(*(apucName + (*pucNameIdx)),
+				CFG_FW_NAME_MAX_LEN, "%s_1c_1.bin",
+				apucConnacFwName[ucIdx]);
+		if (ret >= 0 && ret < CFG_FW_NAME_MAX_LEN)
+			(*pucNameIdx) += 1;
+		else
+			DBGLOG(INIT, ERROR,
+					"[%u] kalSnprintf failed, ret: %d\n",
+					__LINE__, ret);
+
+		/* Type 4. WIFI_RAM_CODE_soc1_0 */
 		ret = kalSnprintf(*(apucName + (*pucNameIdx)),
 				CFG_FW_NAME_MAX_LEN, "%s",
 				apucConnacFwName[ucIdx]);
@@ -189,7 +201,7 @@ void connacConstructFirmwarePrio(struct GLUE_INFO *prGlueInfo,
 					"[%u] kalSnprintf failed, ret: %d\n",
 					__LINE__, ret);
 
-		/* Type 4. WIFI_RAM_CODE_soc1_0.bin */
+		/* Type 5. WIFI_RAM_CODE_soc1_0.bin */
 		ret = kalSnprintf(*(apucName + (*pucNameIdx)),
 				CFG_FW_NAME_MAX_LEN, "%s.bin",
 				apucConnacFwName[ucIdx]);

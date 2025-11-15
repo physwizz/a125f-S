@@ -50,7 +50,7 @@
 static uint8_t raw_buf[RAW_MAX_BYTES * 5 + 10];
 extern UINT32 gBtDbgLevel;
 
-#if CFG_DISABLE_BT_LOG
+#ifdef CONFIG_MTK_DISABLE_CONNECTIVITY_LOG
 #define BT_LOG_PRT_DBG(fmt, arg...)
 #define BT_LOG_PRT_INFO(fmt, arg...)
 #define BT_LOG_PRT_WARN(fmt, arg...)

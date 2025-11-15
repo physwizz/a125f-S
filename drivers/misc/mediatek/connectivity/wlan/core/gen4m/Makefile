@@ -3,12 +3,10 @@ ifeq ($(CONFIG_MTK_PLATFORM),)
 endif
 MTK_PLATFORM := $(subst ",,$(CONFIG_MTK_PLATFORM))
 
-ifeq ($(TARGET_PRODUCT),)
-$(warning TARGET_PRODUCT is empty! using default option.)
-endif
-
 # disable logs!
+ifeq ($(CONFIG_MTK_DISABLE_CONNECTIVITY_LOG),y)
 ccflags-y += -DDBG_DISABLE_ALL_LOG=1
+endif
 
 # ---------------------------------------------------
 # OS option
@@ -967,9 +965,14 @@ endif
 # Service git List
 # ---------------------------------------------------
 
-MTK_WLAN_SERVICE=yes
 SERVICE_DIR  := wlan_service/
-$(info SERVICE_DIR is [{$(SERVICE_DIR)}])
+MTK_WLAN_SERVICE_PATH := $(SERVICE_DIR)
+
+ifneq ($(findstring wlan_service,$(MTK_WLAN_SERVICE_PATH)),)
+MTK_WLAN_SERVICE=yes
+SERVICE_DIR  := $(MTK_WLAN_SERVICE_PATH)
+$(info SERVICE_DIR is [{$(MTK_WLAN_SERVICE_PATH)}])
+endif
 
 ifeq ($(MTK_WLAN_SERVICE), yes)
 ccflags-y += -DCONFIG_WLAN_SERVICE=1
@@ -978,6 +981,7 @@ ccflags-y += -I$(src)/$(SERVICE_DIR)include
 ccflags-y += -I$(src)/$(SERVICE_DIR)service/include
 ccflags-y += -I$(src)/$(SERVICE_DIR)glue/osal/include
 ccflags-y += -I$(src)/$(SERVICE_DIR)glue/hal/include
+#$(info $$CCFLAG is [{$(ccflags-y)}])
 SERVICE_OBJS := $(SERVICE_DIR)agent/agent.o \
                 $(SERVICE_DIR)service/service_test.o \
                 $(SERVICE_DIR)service/test_engine.o \
